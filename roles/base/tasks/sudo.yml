@@ -10,3 +10,4 @@
   copy:
     src: "files/sudoers-wheel"
     dest: "/usr/local/etc/sudoers.d/sudoers-wheel"
+    mode: '0440'
