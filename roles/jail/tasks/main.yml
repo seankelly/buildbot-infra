@@ -1,4 +1,17 @@
 ---
+- name: Configure jail defaults
+  tags: jail
+  blockinfile:
+    dest: "{{ jail_conf_file }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK Jail defaults"
+    create: yes
+    state: present
+    block: |
+      exec.start = "/bin/sh /etc/rc";
+      exec.stop = "/bin/sh /etc/rc.shutdown";
+      exec.clean;
+      mount.devfs;
+
 - name: create jail script
   tags: jail
   copy:

@@ -1,3 +1,4 @@
 ---
+jail_conf_file: /etc/jail.conf
 jail_debug: False
 internet_visible: False
