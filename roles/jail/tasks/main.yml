@@ -25,6 +25,22 @@
     creates: "{{ ezjail_conf_dir }}/{{ name }}"
   register: jail_created
 
+- name: Configure jail
+  tags: jail
+  blockinfile:
+    dest: "{{ jail_conf_file }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ name }}"
+    create: yes
+    state: present
+    block: |
+      {{ name }} {
+          host.hostname = "{{ hostname }}";
+          path = "";
+          ip4.addr = "";
+          mount.fstab = "";
+          exec.consolelog = "";
+      }
+
 - name: set jail's hostname
   tags: jail
   lineinfile:
