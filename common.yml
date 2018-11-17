@@ -30,6 +30,8 @@
 - include: "host-vm1.yml"
 - include: "vm-build1.yml"
 
+- include: upgrade-ansible.yml
+
 - include: "track-config.yml"
   vars:
     commit_message: "post-ansible checkin"

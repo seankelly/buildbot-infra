@@ -1,0 +1,12 @@
+---
+- name: Ansible Upgrade
+  hosts: all
+  gather_facts: no
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install correct Ansible version
+      pkgng:
+        name: "{{ pkg_ansible_version }}"
+        state: present
