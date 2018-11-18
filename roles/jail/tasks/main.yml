@@ -49,10 +49,19 @@
     line: 'export jail_{{ name }}_hostname="{{ hostname }}"'
   when: jail_created is changed
 
-- name: start jail for bootstrapping
+- name: start jail for bootstrapping (ezjail)
+  tags: jail
+  command: "ezjail-admin start {{ name }}"
+  when:
+    - jail_created is changed
+    - not jail_use_jail_conf
+
+- name: start jail for bootstrapping (jail)
   tags: jail
   command: "jail -c {{ name }}"
-  when: jail_created is changed
+  when:
+    - jail_created is changed
+    - jail_use_jail_conf
 
 # pf needs to account for that new jail
 - name: Restart pf
@@ -108,9 +117,18 @@
   ignore_errors: True
   register: jail_running
 
-- name: start the jail
+- name: start the jail (ezjail)
+  tags: jail
+  command: "ezjail-admin start {{ name }}"
+  when:
+    - jail_running is failed
+    - not jail_use_jail_conf
+
+- name: start the jail (jail)
   tags: jail
   command: "jail -c {{ name }}"
-  when: jail_running is failed
+  when:
+    - jail_running is failed
+    - jail_use_jail_conf
 
 # vim:ts=2:sw=2:noai:nosi
