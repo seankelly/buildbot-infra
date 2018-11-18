@@ -2,3 +2,4 @@
 jail_conf_file: /etc/jail.conf
 jail_debug: False
 internet_visible: False
+jail_use_jail_conf: False
